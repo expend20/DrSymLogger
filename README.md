@@ -2,40 +2,40 @@ Using DynamoRIO to capture symbols at runtime.
 
 Fragment of capturing logs for cmd.exe:
 ```
-      1569 T:  3956 [             cmd.exe]:                  -> ParseS0
-      1570 T:  3956 [             cmd.exe]:                      -> BinaryOperator
-      1571 T:  3956 [             cmd.exe]:                          -> ParseS1
-      1572 T:  3956 [             cmd.exe]:                              -> BinaryOperator
-      1573 T:  3956 [             cmd.exe]:                                  -> ParseS2
-      1574 T:  3956 [             cmd.exe]:                                      -> BinaryOperator
-      1575 T:  3956 [             cmd.exe]:                                          -> ParseS3
-      1576 T:  3956 [             cmd.exe]:                                              -> BinaryOperator
-      1577 T:  3956 [             cmd.exe]:                                                  -> ParseS4
-      1578 T:  3956 [             cmd.exe]:                                                      -> ParseRedir
-      1579 T:  3956 [             cmd.exe]:                                                      <- ParseRedir (0x0000000000000000)
-      1580 T:  3956 [             cmd.exe]:                                                      -> ParseS5
-      1581 T:  3956 [             cmd.exe]:                                                          -> ParseCmd
-      1582 T:  3956 [             cmd.exe]:                                                              -> LoadNodeTC
-      1583 T:  3956 [             cmd.exe]:                                                              <- LoadNodeTC (0x0000013275a2ffc0)
-      1584 T:  3956 [             cmd.exe]:                                                              -> Lex
-      1585 T:  3956 [             cmd.exe]:                                                                  -> _intrinsic_setjmp
-      1586 T:  3956 [             cmd.exe]:                                                                  <- _intrinsic_setjmp (0x0000000000000000)
-      1587 T:  3956 [             cmd.exe]:                                                              <- Lex (0x0000000000004000)
-      1588 T:  3956 [             cmd.exe]:                                                              -> mkstr
-      1589 T:  3956 [             cmd.exe]:                                                              <- mkstr (0x0000013275a2be30)
-      1590 T:  3956 [             cmd.exe]:                                                              -> Lex
-      1591 T:  3956 [             cmd.exe]:                                                                  -> _intrinsic_setjmp
-      1592 T:  3956 [             cmd.exe]:                                                                  <- _intrinsic_setjmp (0x0000000000000000)
-      1593 T:  3956 [             cmd.exe]:                                                              <- Lex (0x000000000000000a)
-      1594 T:  3956 [             cmd.exe]:                                                              -> ParseRedir
-      1595 T:  3956 [             cmd.exe]:                                                              <- ParseRedir (0x0000000000000000)
-      1596 T:  3956 [             cmd.exe]:                                                              -> Lex
-      1597 T:  3956 [             cmd.exe]:                                                                  -> _intrinsic_setjmp
-      1598 T:  3956 [             cmd.exe]:                                                                  <- _intrinsic_setjmp (0x0000000000000000)
-      1599 T:  3956 [             cmd.exe]:                                                              <- Lex (0x0000000000000000)
-      1600 T:  3956 [             cmd.exe]:                                                          <- ParseCmd (0x0000013275a2ffc0)
-      1601 T:  3956 [             cmd.exe]:                                                      <- ParseS5 (0x0000013275a2ffc0)
-      1602 T:  3956 [             cmd.exe]:                                                      -> GeToken
+-> ParseS0
+    -> BinaryOperator
+        -> ParseS1
+            -> BinaryOperator
+                -> ParseS2
+                    -> BinaryOperator
+                        -> ParseS3
+                            -> BinaryOperator
+                                -> ParseS4
+                                    -> ParseRedir
+                                    <- ParseRedir (0x0000000000000000)
+                                    -> ParseS5
+                                        -> ParseCmd
+                                            -> LoadNodeTC
+                                            <- LoadNodeTC (0x0000013275a2ffc0)
+                                            -> Lex
+                                                -> _intrinsic_setjmp
+                                                <- _intrinsic_setjmp (0x0000000000000000)
+                                            <- Lex (0x0000000000004000)
+                                            -> mkstr
+                                            <- mkstr (0x0000013275a2be30)
+                                            -> Lex
+                                                -> _intrinsic_setjmp
+                                                <- _intrinsic_setjmp (0x0000000000000000)
+                                            <- Lex (0x000000000000000a)
+                                            -> ParseRedir
+                                            <- ParseRedir (0x0000000000000000)
+                                            -> Lex
+                                                -> _intrinsic_setjmp
+                                                <- _intrinsic_setjmp (0x0000000000000000)
+                                            <- Lex (0x0000000000000000)
+                                        <- ParseCmd (0x0000013275a2ffc0)
+                                    <- ParseS5 (0x0000013275a2ffc0)
+                                    -> GeToken
 ```
 
 # Build
@@ -63,7 +63,7 @@ You could track which symbols get instrumented once with `drrun.exe -c build\Rel
 
 You could use simple grep feature `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe --printSymsGrep Parse -- cmd.exe /c "echo 123; exit"`
 
-You cold instrument literally every symbol with anything you want, look at some examples [here]().
+You cold instrument literally every symbol with anything you want, look at some examples [here](https://github.com/expend20/DrSymLogger/blob/37bc4feb8f5583a91deba45dc60990177c3908c2/src/DrSymLogger.cpp#L59).
 
 
 
