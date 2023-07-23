@@ -1,0 +1,4 @@
+BasedOnStyle: Microsoft
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 80
