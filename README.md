@@ -1,6 +1,6 @@
 Using DynamoRIO to capture function symbol calls at runtime.
 
-[![DrSymLogger: DBI technique](https://yt-embed.herokuapp.com/embed?v=sIc7zQgbn0Y)](https://www.youtube.com/watch?v=sIc7zQgbn0Y "DrSymLogger: DBI technique")
+[![](https://img.youtube.com/vi/sIc7zQgbn0Y/maxresdefault.jpg)](https://www.youtube.com/watch?v=sIc7zQgbn0Y "DrSymLogger: DBI technique")
 
 Fragment of capturing logs for cmd.exe:
 ```
