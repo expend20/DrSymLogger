@@ -1,4 +1,6 @@
-Using DynamoRIO to capture symbols at runtime.
+Using DynamoRIO to capture function symbol calls at runtime.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sIc7zQgbn0Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Fragment of capturing logs for cmd.exe:
 ```
@@ -53,7 +55,7 @@ cmake --build bulid --config RelWithDebInfo
   - Run the process under windbg, to download symbols
 - Spawn a new terminal for drrun
   - set _NT_SYMBOL_PATH for specific console to a directory `c:\symbols` or where ever you have your symbols. DR has a bit different _NT_SYMBOL_PATH meaning than windbg, it does not allow anything except local directores.
-- finally run the tool `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll -- cmd.exe /c "echo 123; exit"`, it'll create `sym_rt_trace_*.txt` file
+- finally run the tool `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`, it'll create `sym_rt_trace_*.txt` file
 
 # Some hints
 
