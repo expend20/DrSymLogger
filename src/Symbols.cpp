@@ -1,5 +1,5 @@
 #include "Symbols.h"
-#include <stdio.h>
+#include <cstdio>
 
 void IsDrSymbolsSetOrAbort()
 {
@@ -9,9 +9,9 @@ void IsDrSymbolsSetOrAbort()
 
     if (!r || r >= sizeof(val))
     {
-        dr_printf("Get't get env var _NT_SYMBOL_PATH, is it set?\n");
+        dr_printf("Can't get env var _NT_SYMBOL_PATH, is it set?\n");
         dr_abort();
-    };
+    }
 
     if (strstr(val, "srv*"))
     {

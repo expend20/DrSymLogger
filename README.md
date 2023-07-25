@@ -40,6 +40,10 @@ Fragment of capturing logs for cmd.exe:
                                     -> GeToken
 ```
 
+# Dependencies
+
+Tested with DR version X.Y, Windows X.Y
+
 # Build
 
 ```
@@ -51,21 +55,23 @@ cmake --build bulid --config RelWithDebInfo
 
 - Build the DrSymLogger.dll
 - Make sure you have symbols downloaded for specified modules
-  - set _NT_SYMBOL_PATH system wide for something like `srv*c:\symbols*https://msdl.microsoft.com/download/symbols`
-  - Run the process under windbg, to download symbols
+  - set _NT_SYMBOL_PATH system-wide for something like `srv*c:\symbols*https://msdl.microsoft.com/download/symbols`
+  - Run the process under WinDbg, to download symbols
 - Spawn a new terminal for drrun
-  - set _NT_SYMBOL_PATH for specific console to a directory `c:\symbols` or where ever you have your symbols. DR has a bit different _NT_SYMBOL_PATH meaning than windbg, it does not allow anything except local directores.
+  - set _NT_SYMBOL_PATH for specific console to a directory `c:\symbols` or whereever you have your symbols. DR has a bit different _NT_SYMBOL_PATH meaning than WinDbg, it does not allow anything except local directories.
 - finally run the tool `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`, it'll create `sym_rt_trace_*.txt` file
 
 # Some hints
 
-To output result to console, add `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`. If your program outputs to console you now have synchronized trace with your logs.
+To output result to console, add `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`. If your program outputs to console, you now have synchronized trace with your logs.
 
-You could track which symbols get instrumented once with `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsInst --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`, this is super fast since does not really affect runtime stage at all.
+You could track which symbols get instrumented once with `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsInst --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`; this is super fast since it does not really affect the runtime stage at all.
 
 You could use simple grep feature `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe --printSymsGrep Parse -- cmd.exe /c "echo 123; exit"`
 
-You cold instrument literally every symbol with anything you want, look at some examples [here](https://github.com/expend20/DrSymLogger/blob/37bc4feb8f5583a91deba45dc60990177c3908c2/src/DrSymLogger.cpp#L59).
+You could instrument literally every symbol with anything you want, look at some examples [here](https://github.com/expend20/DrSymLogger/blob/37bc4feb8f5583a91deba45dc60990177c3908c2/src/DrSymLogger.cpp#L59).
 
+# License
 
+Missing, parts are licensed under Apache 2.0 (args.h|.cpp).
 
