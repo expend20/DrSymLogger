@@ -3,7 +3,7 @@ name: DR tool build
 on: [push, pull_request]
 
 jobs:
-  extract-zip:
+  build:
     runs-on: windows-latest
 
     env:
@@ -46,9 +46,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') || contains(github.ref, '-pre') }}
-          files: build/RelWithDebInfo/DrSymLogger.dll
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            build/RelWithDebInfo/DrSymLogger.dll
