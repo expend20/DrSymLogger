@@ -29,8 +29,19 @@ jobs:
       - name: Run CMake
         run: |
           cmake -B build -DDynamoRIO_DIR="DynamoRIO-Windows-9.0.1\cmake"
-          cmake --build bulid --config RelWithDebInfo
 
+      - name: Run CMake Build
+        run: |
+          cmake --build build --config RelWithDebInfo
 
+      - name: List build files
+        run: |
+          Get-ChildItem -Path "build\RelWithDebInfo"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: DrSymLogger
+          path: build/RelWithDebInfo/DrSymLogger.dll
 
 
