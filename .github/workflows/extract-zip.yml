@@ -1,0 +1,32 @@
+name: DR tool build
+
+on: [push, pull_request]
+
+jobs:
+  extract-zip:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set environment variable for zip file name
+        run: |
+          echo "::set-env name=ZIP_FILE::dr901.zip"
+          echo "::set-env name=EXTRACTED_DIR::dr901"
+
+      - name: Download and extract zip file
+        run: |
+          mkdir $env:EXTRACTED_DIR
+
+          # Download the zip file using the environment variable
+          Invoke-WebRequest -Uri "https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Windows-9.0.1.zip" -OutFile "$env:ZIP_FILE"
+
+          # Extract the zip file
+          Expand-Archive -Path "$env:ZIP_FILE" -DestinationPath "$env:EXTRACTED_DIR"
+
+      - name: List extracted files
+        run: |
+          Get-ChildItem -Path $env:EXTRACTED_DIR
+
+
