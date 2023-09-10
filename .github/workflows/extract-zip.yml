@@ -1,0 +1,54 @@
+name: DR tool build
+
+on: [push, pull_request]
+
+jobs:
+  extract-zip:
+    runs-on: windows-latest
+
+    env:
+      ZIP_FILE: downloaded.zip
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download and extract zip file
+        run: |
+
+          # Download the zip file using the environment variable
+          Invoke-WebRequest -Uri "https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Windows-9.0.1.zip" -OutFile ${{ env.ZIP_FILE }}
+
+          # Extract the zip file
+          Expand-Archive -Path ${{ env.ZIP_FILE }} -DestinationPath .
+
+      - name: List extracted files
+        run: |
+          Get-ChildItem -Path .
+
+      - name: Run CMake
+        run: |
+          cmake -B build -DDynamoRIO_DIR="DynamoRIO-Windows-9.0.1\cmake"
+
+      - name: Run CMake Build
+        run: |
+          cmake --build build --config RelWithDebInfo
+
+      - name: List build files
+        run: |
+          Get-ChildItem -Path "build\RelWithDebInfo"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: DrSymLogger
+          path: build/RelWithDebInfo/DrSymLogger.dll
+
+      - name: Release
+        uses: softprops/action-gh-release
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        with:
+          prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') || contains(github.ref, '-pre') }}
+          files: ${{ github.event.repository.name }}-${{ github.sha }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

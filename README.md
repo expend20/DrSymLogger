@@ -44,7 +44,7 @@ Fragment of capturing logs for cmd.exe:
 
 ```
 cmake -B build -DDynamoRIO_DIR="...\dr9\cmake"
-cmake --build bulid --config RelWithDebInfo
+cmake --build build --config RelWithDebInfo
 ```
 
 # Usage
