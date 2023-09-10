@@ -8,7 +8,6 @@ jobs:
 
     env:
       ZIP_FILE: downloaded.zip
-      EXTRACTED_DIR: extracted
 
     steps:
       - name: Checkout code
@@ -16,19 +15,21 @@ jobs:
 
       - name: Download and extract zip file
         run: |
-          mkdir ${{ env.EXTRACTED_DIR }}
 
           # Download the zip file using the environment variable
           Invoke-WebRequest -Uri "https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Windows-9.0.1.zip" -OutFile ${{ env.ZIP_FILE }}
 
           # Extract the zip file
-          Expand-Archive -Path ${{ env.ZIP_FILE }} -DestinationPath ${{ env.EXTRACTED_DIR }}
+          Expand-Archive -Path ${{ env.ZIP_FILE }} -DestinationPath .
 
       - name: List extracted files
         run: |
-          Get-ChildItem -Path ${{ env.EXTRACTED_DIR }}
+          Get-ChildItem -Path .
 
-
+      - name: Run CMake
+        run: |
+          cmake -B build -DDynamoRIO_DIR="DynamoRIO-Windows-9.0.1\cmake"
+          cmake --build bulid --config RelWithDebInfo
 
 
 
