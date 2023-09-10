@@ -49,6 +49,6 @@ jobs:
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') || contains(github.ref, '-pre') }}
-          files: ${{ github.event.repository.name }}-${{ github.sha }}.zip
+          files: build/RelWithDebInfo/DrSymLogger.dll
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
