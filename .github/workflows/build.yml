@@ -42,11 +42,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: DrSymLogger
-          path: build\RelWithDebInfo\DrSymLogger.dll
+          path: build/RelWithDebInfo/DrSymLogger.dll
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build\RelWithDebInfo\DrSymLogger.dll
+            build/RelWithDebInfo/DrSymLogger.dll
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
