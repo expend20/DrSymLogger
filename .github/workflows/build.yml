@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download and extract zip file
         run: |
@@ -44,11 +44,14 @@ jobs:
           name: DrSymLogger
           path: build/RelWithDebInfo/DrSymLogger.dll
 
+      - name: Build-test
+        run: echo ${{ github.sha }} > Release.txt
+
+      - name: Test-test
+        run: Get-Content Release.txt
+
       - name: Release
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            build/RelWithDebInfo/DrSymLogger.dll
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: Release.txt
