@@ -1,4 +1,6 @@
-Using DynamoRIO to capture function symbol calls at runtime.
+Using DynamoRIO tool to capture function symbol calls at runtime.
+
+Check out [GUI launcher](https://github.com/expend20/dr_symlogger_launcher).
 
 [![](https://img.youtube.com/vi/sIc7zQgbn0Y/maxresdefault.jpg)](https://www.youtube.com/watch?v=sIc7zQgbn0Y "DrSymLogger: DBI technique")
 
@@ -42,13 +44,13 @@ Fragment of capturing logs for cmd.exe:
 
 # Dependencies
 
-Tested with DR version X.Y, Windows X.Y
+Tested with DR version 9.0.1, Windows 10.0.22621
 
 # Build
 
 ```
 cmake -B build -DDynamoRIO_DIR="...\dr9\cmake"
-cmake --build bulid --config RelWithDebInfo
+cmake --build build --config RelWithDebInfo
 ```
 
 # Usage
@@ -63,15 +65,16 @@ cmake --build bulid --config RelWithDebInfo
 
 # Some hints
 
-To output result to console, add `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`. If your program outputs to console, you now have synchronized trace with your logs.
 
-You could track which symbols get instrumented once with `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsInst --printSymsModule cmd.exe -- cmd.exe /c "echo 123; exit"`; this is super fast since it does not really affect the runtime stage at all.
+To output result to console, add `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe -- cmd.exe /c "echo 123 && exit"`. If your program outputs to console, you now have synchronized trace with your logs.
 
-You could use simple grep feature `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe --printSymsGrep Parse -- cmd.exe /c "echo 123; exit"`
+You could track which symbols get instrumented once with `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsInst --printSymsModule cmd.exe -- cmd.exe /c "echo 123 && exit"`; this is super fast since it does not really affect the runtime stage at all.
+
+You could use simple grep feature `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe --printSymsGrep Parse -- cmd.exe /c "echo 123 && exit"`
 
 You could instrument literally every symbol with anything you want, look at some examples [here](https://github.com/expend20/DrSymLogger/blob/37bc4feb8f5583a91deba45dc60990177c3908c2/src/DrSymLogger.cpp#L59).
 
 # License
 
-Missing, parts are licensed under Apache 2.0 (args.h|.cpp).
+MIT
 
