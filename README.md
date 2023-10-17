@@ -65,6 +65,7 @@ cmake --build build --config RelWithDebInfo
 
 # Some hints
 
+
 To output result to console, add `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsExec --printSymsExecConsole --printSymsModule cmd.exe -- cmd.exe /c "echo 123 && exit"`. If your program outputs to console, you now have synchronized trace with your logs.
 
 You could track which symbols get instrumented once with `drrun.exe -c build\RelWithDebInfo\DrSymLogger.dll --printSymsInst --printSymsModule cmd.exe -- cmd.exe /c "echo 123 && exit"`; this is super fast since it does not really affect the runtime stage at all.
