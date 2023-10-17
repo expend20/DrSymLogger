@@ -196,7 +196,6 @@ static dr_emit_flags_t CodeRefsBBInstClb(void *drcontext, void *tag,
                                          bool for_trace, bool translating,
                                          void *user_data)
 {
-
     module_data_t *mod = 0;
     drsym_info_t sym = {0};
     static char name[2048] = {0};
@@ -262,7 +261,7 @@ static dr_emit_flags_t CodeRefsBBInstClb(void *drcontext, void *tag,
         //        sym.debug_kind);
         return DR_EMIT_DEFAULT;
     }
-    // if the start of the symbol equals to the requestes offset
+    // if the start of the symbol equals to the requested offset
     if ((size_t)sym.start_offs != tagOffset)
     {
         return DR_EMIT_DEFAULT;
@@ -353,7 +352,7 @@ void TraceSymsInit(int argc, char **argv)
         g_logFile = dr_open_file(path, DR_FILE_WRITE_OVERWRITE);
         if (g_logFile == INVALID_FILE)
         {
-            dr_printf("[!] Can't crate file");
+            dr_printf("[!] Can't create file");
         }
         dr_printf("Writing symbols execution trace to %s...\n", path);
     }
