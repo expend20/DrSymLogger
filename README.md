@@ -2,7 +2,7 @@ Using DynamoRIO tool to capture function symbol calls at runtime.
 
 Check out [GUI launcher](https://github.com/expend20/dr_symlogger_launcher).
 
-[![](https://img.youtube.com/vi/sIc7zQgbn0Y/maxresdefault.jpg)](https://www.youtube.com/watch?v=sIc7zQgbn0Y "DrSymLogger: DBI technique")
+[![](https://img.youtube.com/vi/GASyCRF6DJs/maxresdefault.jpg)](https://www.youtube.com/watch?v=GASyCRF6DJs "DrSymLogger: DBI technique")
 
 Fragment of capturing logs for cmd.exe:
 ```
